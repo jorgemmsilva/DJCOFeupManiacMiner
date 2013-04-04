@@ -7,11 +7,15 @@ public class ActivateTrigger : MonoBehaviour {
 		Activate  = 2, // Activate the target GameObject
 		Enable    = 3, // Enable a component
 		Animate   = 4, // Start animation on target
-		Deactivate= 5 // Decativate target GameObject
+		Deactivate= 5, // Decativate target GameObject
+		Fall= 6 // Activates gravity
 	}
 
 	/// The action to accomplish
 	public Mode action = Mode.Activate;
+	
+	public float fallWaitTime=3.0f;
+	public float fallRespawnTime=3.0f;
 
 	/// The game object to affect. If none, the trigger work on this game object
 	public Object target;
@@ -52,10 +56,33 @@ public class ActivateTrigger : MonoBehaviour {
 				case Mode.Deactivate:
 					targetGameObject.active = false;
 					break;
+				case Mode.Fall:
+					StartCoroutine(PlatformFall(targetGameObject));
+					break;
 			}
 		}
 	}
-
+	
+	System.Collections.IEnumerator PlatformDestroy(GameObject targetGameObject) {
+		targetGameObject.renderer.material.color=Color.red;
+		yield return new WaitForSeconds(fallWaitTime);
+		targetGameObject.active=false;
+	}
+	
+	System.Collections.IEnumerator PlatformRestore(GameObject targetGameObject) {
+		yield return new WaitForSeconds(fallRespawnTime);
+		targetGameObject.active=true;
+		targetGameObject.renderer.material.color=Color.white;
+	}
+	
+	System.Collections.IEnumerator PlatformFall(GameObject targetGameObject) {
+		UnityEngine.Vector3 startPos = targetGameObject.rigidbody.position;
+		targetGameObject.collider.rigidbody.useGravity = true;
+		yield return new WaitForSeconds(fallWaitTime);
+		targetGameObject.collider.rigidbody.useGravity = false;
+		targetGameObject.rigidbody.position = startPos;
+	}
+	
 	void OnTriggerEnter (Collider other) {
 		DoActivateTrigger ();
 	}

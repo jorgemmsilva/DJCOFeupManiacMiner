@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets (Mobile)\Scripts\Joystick.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Personal Assets\Scripts\camera_script.cs">
     <Files>
-      <File FileName="Assets\Standard Assets (Mobile)\Scripts\Joystick.js" Line="90" Column="1" />
+      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" Line="148" Column="14" />
+      <File FileName="Assets\Personal Assets\Scripts\camera_script.cs" Line="22" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

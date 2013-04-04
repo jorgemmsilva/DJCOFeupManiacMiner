@@ -12,6 +12,7 @@ public var trotMaxAnimationSpeed : float = 1.0;
 public var runMaxAnimationSpeed : float = 1.0;
 public var jumpAnimationSpeed : float = 1.15;
 public var landAnimationSpeed : float = 1.0;
+public var movement2D : boolean = false;
 
 private var _animation : Animation;
 
@@ -130,7 +131,9 @@ function UpdateSmoothedMovementDirection ()
 	var grounded = IsGrounded();
 	
 	// Forward vector relative to the camera along the x-z plane	
-	var forward = cameraTransform.TransformDirection(Vector3.forward);
+	var forward;
+	forward = cameraTransform.TransformDirection(Vector3.forward);
+	if (movement2D) {forward.x=1;forward.z=0;} // Comentar para rotação com a camera
 	forward.y = 0;
 	forward = forward.normalized;
 
@@ -152,6 +155,7 @@ function UpdateSmoothedMovementDirection ()
 		
 	// Target direction relative to the camera
 	var targetDirection = h * right + v * forward;
+	if (movement2D) {targetDirection = h * right;}
 	
 	// Grounded controls
 	if (grounded)
@@ -167,7 +171,7 @@ function UpdateSmoothedMovementDirection ()
 		if (targetDirection != Vector3.zero)
 		{
 			// If we are really slow, just snap to the target direction
-			if (moveSpeed < walkSpeed * 0.9 && grounded)
+			if (movement2D || moveSpeed < walkSpeed * 0.9 && grounded)
 			{
 				moveDirection = targetDirection.normalized;
 			}
