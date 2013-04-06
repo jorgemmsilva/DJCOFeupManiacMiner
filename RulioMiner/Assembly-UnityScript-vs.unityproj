@@ -57,6 +57,7 @@
      <Compile Include="Assets\BaseMale\Scripts\clearText.js" />
      <Compile Include="Assets\BaseMale\Scripts\infoText.js" />
      <Compile Include="Assets\BaseMale\Scripts\shadow.js" />
+     <Compile Include="Assets\MenuControl.js" />
      <Compile Include="Assets\Standard Assets (Mobile)\Scripts\CameraRelativeControl.js" />
      <Compile Include="Assets\Standard Assets (Mobile)\Scripts\FirstPersonControl.js" />
      <Compile Include="Assets\Standard Assets (Mobile)\Scripts\FollowTransform.js" />
