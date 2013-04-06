@@ -8,7 +8,8 @@ public class ActivateTrigger : MonoBehaviour {
 		Enable    = 3, // Enable a component
 		Animate   = 4, // Start animation on target
 		Deactivate= 5, // Decativate target GameObject
-		Fall= 6 // Activates gravity
+		Fall      = 6, // Activates gravity
+		BroadcastMessage = 7 // Sends a message to an object
 	}
 
 	/// The action to accomplish
@@ -22,6 +23,7 @@ public class ActivateTrigger : MonoBehaviour {
 	public GameObject source;
 	public int triggerCount = 1;///
 	public bool repeatTrigger = false;
+	public string message="DoActivateTrigger";
 	
 	void DoActivateTrigger () {
 		triggerCount--;
@@ -58,6 +60,9 @@ public class ActivateTrigger : MonoBehaviour {
 					break;
 				case Mode.Fall:
 					StartCoroutine(PlatformFall(targetGameObject));
+					break;
+				case Mode.BroadcastMessage:
+					targetGameObject.BroadcastMessage(message);
 					break;
 			}
 		}

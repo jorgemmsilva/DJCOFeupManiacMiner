@@ -7,10 +7,19 @@ public class camera_script : MonoBehaviour {
 	Vector3 offset;
 	Quaternion offset_rotation;
 	Vector3 angle;
+	private Vector3 targetAngle;
+	private float DELTA_ANGLE=5.0f;
 	
 	void Awake () {
 		offset =  transform.position - target.transform.position;
 		offset_rotation = transform.rotation;
+	}
+	
+	void Rot90() {
+		targetAngle.y=(angle.y+90)%360;
+	}
+	void Rot270() {
+		targetAngle.y=(angle.y-90)%360;
 	}
 
 	void Start () {
@@ -18,7 +27,15 @@ public class camera_script : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		angle.y += Input.GetAxis("Mouse X");
+		//angle.y += Input.GetAxis("Mouse X");
+		if (targetAngle.y>angle.y) {
+			if (angle.y+DELTA_ANGLE>targetAngle.y) {angle.y=targetAngle.y;}
+			else {angle.y+=DELTA_ANGLE;}
+		}
+		else if (targetAngle.y<angle.y) {
+			if (angle.y-DELTA_ANGLE<targetAngle.y) {angle.y=targetAngle.y;}
+			else {angle.y-=DELTA_ANGLE;}
+		}
 		angle.y = angle.y % 360;
 		
 		//only allow rotation on y, this is to make 2.5 effect
