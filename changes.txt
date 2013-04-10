@@ -1,1 +1,5 @@
 Ruben - 04/04/2013 - 17:00h - Correcão de alguns erros na camara.
+
+Ruben - 10/04/2013 - 14:36h - Adição de tag "enemy" agora mata se tiver um collider
+							  Adição de scripts de power up. Apenas de plataforma inserido no avatar
+							  Necessários tests nos scripts
