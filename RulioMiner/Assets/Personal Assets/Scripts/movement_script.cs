@@ -7,19 +7,30 @@ using System.Collections;
 public class movement_script : MonoBehaviour {
  
 	public float speed = 8.0f;
-	public float gravity = 10.0f;
+	//horizontal
+	public float jump_perc_speed = 0.2f;
+	//vertical
+	public float jump_speed = 2f;
 	public float maxVelocityChange = 10.0f;
+	public float gravity = 30.0f;
+	public float height_max_jump_time_ms = 100f;
 	
-	private Camera cam;
+	bool jumping = false;
+	//dummy value, just needs to be above zero
+	float cur_jump_time = 1;
 	
+	Vector3 cur_rotation;
+	Camera cam;
+		
 	void Awake () {
 	    rigidbody.freezeRotation = true;
-	    rigidbody.useGravity = true;
-		cam=transform.Find("Camera").camera;
+	    rigidbody.useGravity = false;
+		cam=Camera.main;
+		cur_rotation=transform.rotation.eulerAngles;
 		
 		animation.wrapMode = WrapMode.Loop;
    		
-		animation["jump"].wrapMode = WrapMode.Once;
+		animation["jump"].wrapMode = WrapMode.ClampForever;
 		animation["jump"].layer = 3;
 
 		animation.Stop();		
@@ -31,15 +42,32 @@ public class movement_script : MonoBehaviour {
 
 		
 		//constant no animation/normal here
-		//TODO must check if on air
 		animation.CrossFade("idle");
 		
-		if(Input.GetButton("Jump"))
+		if(cur_jump_time>0)
 		{
-			//canJump=false;
-			rigidbody.AddForce(new Vector3(0,500,0),ForceMode.Acceleration);
-			animation.Play("jump");
+			if(Input.GetButton("Jump"))
+			{
+				if(jumping == false)
+				{
+					//initialization of animation and values
+					animation.Play("jump");
+					jumping=true;
+					cur_jump_time = height_max_jump_time_ms;
+				}
+				else
+				{
+					cur_jump_time -= Time.deltaTime * 1000f ;
+				}
+				rigidbody.AddForce(new Vector3(0,jump_speed,0),ForceMode.VelocityChange);
+			}
+			else
+			{
+				//so it doesnt allow multiple mini jumps midair
+				if(jumping) cur_jump_time = 0;
+			}	
 		}
+
 		//two dimension movement, this case Z is front and back, X is right and left, and axis Y not used this is locally speaking.
 		Vector3 targetMovement = new Vector3(0f, 0f, -Input.GetAxis("Horizontal"));
 
@@ -53,9 +81,9 @@ public class movement_script : MonoBehaviour {
 			
 			//then rotate acording to that and add camara view
 			Vector3 rotation= new Vector3(0.0f,angle,0.0f);
-			rotation += new Vector3(0,cam.GetComponent<camera_script>().getAngle().y,0);
+			//rotation += new Vector3(0,cam.GetComponent<camera_script>().getAngle().y,0);
 		
-			transform.eulerAngles = rotation;
+			transform.eulerAngles = cur_rotation + rotation;
 			
 			if(targetMovement.magnitude>0)
 			{
@@ -71,15 +99,60 @@ public class movement_script : MonoBehaviour {
 			//the vector that globally represents the direction (0,0,targetMovement.magnitude) if you are the transform. This tell us where to move
 			//can't use targetMovement inside function because you're rotated and always want to move forward in Z, even if z value is <0
 			targetMovement = transform.TransformDirection(new Vector3(0,0,targetMovement.magnitude));
-			targetMovement *= speed;
-			Vector3 velocity = rigidbody.velocity;
-			//axis not used must go 0 or else velocityChange will reverse current value on axis
-			velocity.y=0;
-	
-			Vector3 velocityChange = (targetMovement - velocity);
-		    velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
 			
-		    rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+			if (jumping)
+			{
+				if(((rigidbody.velocity.z<0 && targetMovement.z>0)||(rigidbody.velocity.z>0 && targetMovement.z<0)) || (rigidbody.velocity.z < speed && rigidbody.velocity.z > -speed))
+				{
+					targetMovement *= (speed * jump_perc_speed);
+					rigidbody.AddForce(targetMovement, ForceMode.Acceleration);
+				}
 			}
+			else
+			{
+				targetMovement *= speed;
+				Vector3 velocity = rigidbody.velocity;
+				//axis not used must go 0 or else velocityChange will reverse current value on axis
+				velocity.y=0;
+		
+				Vector3 velocityChange = (targetMovement - velocity);
+			    velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+				
+			    rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+			}
+			
+		}
 	}
+	
+	//checking if is jumping and colided with foot on surface
+	void OnCollisionEnter(Collision collision)
+	{
+		if(jumping)
+		{
+			//Debug.Log("entrou");
+        	foreach (ContactPoint contact in collision.contacts)
+			{
+				Debug.Log ("ponto: " + contact.point + "  normal: " + contact.normal );
+				if(contact.normal.x>0.2||contact.normal.x<-0.2||contact.normal.z>0.2||contact.normal.z<-0.2||(contact.normal.y<0.9&&contact.normal.y>-0.9))
+				{
+					//he didnt hit on solid ground
+					return;
+				}
+            	Debug.DrawRay(contact.point, contact.normal, Color.white);
+        	}
+			cur_jump_time = height_max_jump_time_ms;
+			jumping=false;
+			animation.Stop("jump");
+		}
+    }
+	
+	public void changeGravity()
+	{
+		gravity=-gravity;
+		jump_speed=-jump_speed;
+		cur_rotation = cur_rotation + new Vector3(0,0,180);
+		transform.eulerAngles = transform.eulerAngles + new Vector3(0,0,180);
+			
+	}
+	
 }

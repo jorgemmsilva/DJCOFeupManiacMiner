@@ -442,3 +442,13 @@ function Reset ()
 	gameObject.tag = "Player";
 }
 
+
+function addVel (vel: Vector3) 
+{
+	var controller : CharacterController = GetComponent(CharacterController);
+	
+	Debug.Log("velocidade antes: " + controller.velocity);
+	Debug.Log("velocidade adicionada: " + vel);
+	//controller.velocity = controller.velocity + vel;
+	Debug.Log("velocidade final: " + controller.velocity);
+}

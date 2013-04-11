@@ -4,9 +4,12 @@ using System.Collections;
 public class avatar_script : MonoBehaviour {
 	
 	private Vector3 last_checkpoint;
+	private int number_jolas;
+	
 	// Use this for initialization
 	void Start () {
 		last_checkpoint = transform.position;
+		number_jolas = 0;
 	}
 		
 	void OnControllerColliderHit (ControllerColliderHit hit)
@@ -15,10 +18,6 @@ public class avatar_script : MonoBehaviour {
 		{
 			died ();
 		}
-		if(hit.gameObject.tag=="checkpoint")
-		{
-			setCheckpoint (hit.gameObject.transform.position);
-		}
 	}
 	
 	public void setCheckpoint(Vector3 check) 
@@ -26,12 +25,16 @@ public class avatar_script : MonoBehaviour {
 		last_checkpoint = check;
 	}
 
-	
-	//acabou de morrer
 	public void died() 
 	{
 		transform.position = last_checkpoint;
 		transform.rigidbody.velocity = new Vector3(0,0,0);
+	}
+	
+	public void add_jola()
+	{
+		number_jolas++;
+		Debug.Log(number_jolas+" jolas");
 	}
 	
 }

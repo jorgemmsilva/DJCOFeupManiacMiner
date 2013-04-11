@@ -4,15 +4,14 @@ using System.Collections;
 public class ninjaRope_script : MonoBehaviour {
 	
 	public GameObject avatar;
-	public Rigidbody projectile;
+	public GameObject projectile;
 	public float speed=10.0f;
-
-	void Start () {
-	}
+	
+	int number = 0;
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("Fire1")) 
+		if (Input.GetButtonDown("Fire1")&&number>0) 
 		{
 			//this gives us the ray in the world right at the camera plane
 			//need to cast ray to plane of avatar to know that position
@@ -22,14 +21,17 @@ public class ninjaRope_script : MonoBehaviour {
 
 	        if (plane.Raycast(ray, out ent))
 			{
-				//Debug.Log("Plane Raycast hit at distance: " + ent);
 				var hitPoint = ray.GetPoint(ent);
-				Rigidbody clone;
-            	clone = Instantiate(projectile,avatar.transform.position, new Quaternion(0,0,0,1)) as Rigidbody;
-	        	clone.velocity =(hitPoint-avatar.transform.position).normalized * speed;
+				GameObject clone;
+            	clone = Instantiate(projectile,avatar.transform.position, new Quaternion(0,0,0,1)) as GameObject;
+	        	clone.rigidbody.velocity =(hitPoint-avatar.transform.position).normalized * speed;
+				number--;
 			}
-			//else
-				//Debug.DrawRay (avatar.transform.position, ray.direction * 10, Color.red);
         }
+	}
+	
+	public void addPower ()
+	{
+		number++;
 	}
 }

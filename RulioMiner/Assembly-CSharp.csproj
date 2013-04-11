@@ -44,9 +44,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Personal Assets\Scripts\HUD_script.cs" />
+     <Compile Include="Assets\Personal Assets\Scripts\Powerup_pickup_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\addplatform_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\avatar_script.cs" />
+     <Compile Include="Assets\Personal Assets\Scripts\beer_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\camera_script.cs" />
+     <Compile Include="Assets\Personal Assets\Scripts\checkpoint_script.cs" />
+     <Compile Include="Assets\Personal Assets\Scripts\kill_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\movement_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\ninjaProjectile_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\ninjaRope_script.cs" />
