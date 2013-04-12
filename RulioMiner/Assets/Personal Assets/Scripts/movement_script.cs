@@ -7,9 +7,7 @@ using System.Collections;
 public class movement_script : MonoBehaviour {
  
 	public float speed = 8.0f;
-	//horizontal
 	public float jump_perc_speed = 0.2f;
-	//vertical
 	public float jump_speed = 2f;
 	public float maxVelocityChange = 10.0f;
 	public float gravity = 30.0f;
@@ -20,12 +18,9 @@ public class movement_script : MonoBehaviour {
 	float cur_jump_time = 1;
 	
 	Vector3 cur_rotation;
-	Camera cam;
-		
 	void Awake () {
 	    rigidbody.freezeRotation = true;
 	    rigidbody.useGravity = false;
-		cam=Camera.main;
 		cur_rotation=transform.rotation.eulerAngles;
 		
 		animation.wrapMode = WrapMode.Loop;
@@ -122,6 +117,16 @@ public class movement_script : MonoBehaviour {
 			}
 			
 		}
+		else
+		{
+			if(!jumping)
+			{
+				//simulate drag
+				Vector3 velocityChange = -rigidbody.velocity;
+				velocityChange.y = 0;
+				rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+			}
+		}
 	}
 	
 	//checking if is jumping and colided with foot on surface
@@ -132,8 +137,9 @@ public class movement_script : MonoBehaviour {
 			//Debug.Log("entrou");
         	foreach (ContactPoint contact in collision.contacts)
 			{
-				Debug.Log ("ponto: " + contact.point + "  normal: " + contact.normal );
-				if(contact.normal.x>0.2||contact.normal.x<-0.2||contact.normal.z>0.2||contact.normal.z<-0.2||(contact.normal.y<0.9&&contact.normal.y>-0.9))
+				
+				//Debug.Log ("ponto: " + contact.point + "  normal: " + contact.normal );
+				if(contact.normal.y<0.8&&contact.normal.y>-0.8)
 				{
 					//he didnt hit on solid ground
 					return;
@@ -146,13 +152,28 @@ public class movement_script : MonoBehaviour {
 		}
     }
 	
+	
 	public void changeGravity()
 	{
 		gravity=-gravity;
 		jump_speed=-jump_speed;
 		cur_rotation = cur_rotation + new Vector3(0,0,180);
-		transform.eulerAngles = transform.eulerAngles + new Vector3(0,0,180);
-			
+		transform.RotateAround (transform.collider.bounds.center, transform.TransformDirection(Vector3.forward), 180);
+
 	}
 	
+	public void forceJump()
+	{
+		jumping=true;
+	}
+	
+	public void rotate90()
+	{
+		cur_rotation = cur_rotation + new Vector3(0,90,0);
+	}
+	
+	public void rotateminus90()
+	{
+		cur_rotation = cur_rotation + new Vector3(0,-90,0);
+	}	
 }

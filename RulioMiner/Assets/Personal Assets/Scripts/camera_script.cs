@@ -14,17 +14,7 @@ public class camera_script : MonoBehaviour {
 		offset =  transform.position - target.transform.position;
 		offset_rotation = transform.rotation;
 	}
-	
-	void Rot90() {
-		targetAngle.y=(angle.y+90)%360;
-	}
-	void Rot270() {
-		targetAngle.y=(angle.y-90)%360;
-	}
 
-	void Start () {
-	}
-	// Update is called once per frame
 	void Update () {
 	
 		//angle.y += Input.GetAxis("Mouse X");
@@ -54,7 +44,10 @@ public class camera_script : MonoBehaviour {
 		Debug.Log("transform: " + transform.rotation.eulerAngles);*/
 	}
 	
-	public Vector3 getAngle() {
-		return angle;
+	public void Rot90() {
+		targetAngle.y=(angle.y+90)%360;
+	}
+	public void Rot270() {
+		targetAngle.y=(angle.y-90)%360;
 	}
 }

@@ -11,23 +11,28 @@ public class Powerup_pickup_script : MonoBehaviour {
 	// in your script, declare a public variable of your enum type
 	public MyEnumeratedType option;
 	
+	public int number_charges = 1;
+	
 	void OnTriggerEnter(Collider other) {
 		if (other.tag=="Player")
 		{
 			if (option == MyEnumeratedType.NinjaRope)
 			{
-				other.gameObject.GetComponent<ninjaRope_script>().addPower();
+				other.gameObject.GetComponent<ninjaRope_script>().addPower(number_charges);
 			}
 			else if (option == MyEnumeratedType.Platform)
 			{
-				other.gameObject.GetComponent<addplatform_script>().addPower();
+				other.gameObject.GetComponent<addplatform_script>().addPower(number_charges);
 			}
 			else
 			{
 				other.gameObject.GetComponent<movement_script>().changeGravity();
-				//TODO script de mudar gravidade
 			}
-			Destroy(gameObject);
+			//gameObject.renderer.enabled=false;
+			//gameObject.particleSystem.Stop();
+			//Destroy(gameObject);
+			
+			
 		}
     }
 }

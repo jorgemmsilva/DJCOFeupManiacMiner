@@ -29,8 +29,8 @@ public class addplatform_script : MonoBehaviour {
 		}
 	}
 	
-	public void addPower ()
+	public void addPower (int number_ch)
 	{
-		number++;
+		number=number_ch;
 	}
 }

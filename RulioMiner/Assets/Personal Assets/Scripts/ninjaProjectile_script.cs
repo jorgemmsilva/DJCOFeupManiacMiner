@@ -2,32 +2,20 @@ using UnityEngine;
 using System.Collections;
 
 public class ninjaProjectile_script : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
 	
-	}
+	public float pull = 30.0f;
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
-	void OnTriggerEnter(Collider other) {
-		//Debug.Log("entrou: "+other.name + " - " + this.name);
-		if (other.tag!="Player" && other.tag!="floor")
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.tag!="Player")
 		{
 			GameObject avatar = GameObject.FindGameObjectWithTag("Player");
 			//avatar.GetComponent<ThirdPersonController>().addVel(((other.transform.position - avatar.transform.position).normalized)*10);
 			
-			//avatar.GetComponent<CharacterController>().enabled = false;
+			avatar.GetComponent<movement_script>().forceJump();
+			avatar.rigidbody.AddForce(((transform.position - avatar.collider.bounds.center).normalized)*pull,ForceMode.VelocityChange);
 			
-			//	addVel(((other.transform.position - avatar.transform.position).normalized)*10);
-			
-			avatar.rigidbody.AddForce(((other.transform.position - avatar.transform.position).normalized)*10,ForceMode.VelocityChange);
-			gameObject.rigidbody.velocity = Vector3.zero;
 			Destroy(gameObject);
-			//this.transform.Find("Particle System").particleSystem.enableEmission=false;
 		}
     }
 }
