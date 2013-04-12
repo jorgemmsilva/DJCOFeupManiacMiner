@@ -55,6 +55,7 @@
      <Compile Include="Assets\Personal Assets\Scripts\movement_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\ninjaProjectile_script.cs" />
      <Compile Include="Assets\Personal Assets\Scripts\ninjaRope_script.cs" />
+     <Compile Include="Assets\Personal Assets\Scripts\platform_fall_script.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Multiply Culled.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />

@@ -23,14 +23,6 @@ public class avatar_script : MonoBehaviour {
 
 		transform.position=temp;
 	}
-		
-	void OnControllerColliderHit (ControllerColliderHit hit)
-	{
-		if(hit.gameObject.tag=="enemy")
-		{
-			died ();
-		}
-	}
 	
 	public void setCheckpoint(Vector3 check, int sign) 
 	{

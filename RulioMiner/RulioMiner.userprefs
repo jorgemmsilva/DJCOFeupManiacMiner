@@ -1,18 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Personal Assets\Scripts\avatar_script.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Personal Assets\Scripts\platform_fall_script.cs">
     <Files>
-      <File FileName="Assets\Personal Assets\Scripts\checkpoint_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\beer_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\movement_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\Powerup_pickup_script.cs" Line="1" Column="1" />
       <File FileName="Assets\Personal Assets\Scripts\kill_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\Personal Assets\Scripts\checkpoint_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\Personal Assets\Scripts\beer_script.cs" Line="13" Column="6" />
+      <File FileName="Assets\Personal Assets\Scripts\movement_script.cs" Line="153" Column="6" />
+      <File FileName="Assets\Personal Assets\Scripts\Powerup_pickup_script.cs" Line="1" Column="1" />
       <File FileName="Assets\Personal Assets\Scripts\HUD_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\avatar_script.cs" Line="50" Column="41" />
+      <File FileName="Assets\Personal Assets\Scripts\avatar_script.cs" Line="25" Column="3" />
       <File FileName="Assets\Personal Assets\Scripts\ninjaProjectile_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\addplatform_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\Personal Assets\Scripts\addplatform_script.cs" Line="23" Column="16" />
       <File FileName="Assets\Personal Assets\Scripts\ninjaRope_script.cs" Line="1" Column="1" />
-      <File FileName="Assets\Personal Assets\Scripts\camera_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\Personal Assets\Scripts\camera_script.cs" Line="4" Column="33" />
+      <File FileName="Assets\Personal Assets\Scripts\platform_fall_script.cs" Line="18" Column="7" />
+      <File FileName="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" Line="71" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,7 +23,16 @@
             <Node name="Assets" expanded="True">
               <Node name="Personal Assets" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="avatar_script.cs" selected="True" />
+                  <Node name="platform_fall_script.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-firstpass" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Standard Assets" expanded="True">
+                <Node name="Scripts" expanded="True">
+                  <Node name="General Scripts" expanded="True" />
                 </Node>
               </Node>
             </Node>
