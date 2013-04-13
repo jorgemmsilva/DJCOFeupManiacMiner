@@ -10,7 +10,7 @@ public class addplatform_script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown("Fire1")&&number>0) 
+		if (Input.GetButtonDown("Fire2")&&number>0) 
 		{
 			//this gives us the ray in the world right at the camera plane
 			//need to cast ray to plane of avatar to know that position

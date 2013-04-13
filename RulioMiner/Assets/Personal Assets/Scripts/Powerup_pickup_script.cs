@@ -14,6 +14,7 @@ public class Powerup_pickup_script : MonoBehaviour {
 	public int number_charges = 1;
 	
 	void OnTriggerEnter(Collider other) {
+		gameObject.particleSystem.Play();
 		if (other.tag=="Player")
 		{
 			if (option == MyEnumeratedType.NinjaRope)

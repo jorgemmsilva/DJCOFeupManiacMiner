@@ -7,7 +7,6 @@ using System.Collections;
 public class movement_script : MonoBehaviour {
  
 	public float speed = 8.0f;
-	public float jump_perc_speed = 0.2f;
 	public float jump_speed = 2f;
 	public float maxVelocityChange = 10.0f;
 	public float gravity = 30.0f;
@@ -64,7 +63,7 @@ public class movement_script : MonoBehaviour {
 		}
 
 		//two dimension movement, this case Z is front and back, X is right and left, and axis Y not used this is locally speaking.
-		Vector3 targetMovement = new Vector3(0f, 0f, -Input.GetAxis("Horizontal"));
+		Vector3 targetMovement = new Vector3(0f, 0f, -Input.GetAxisRaw("Horizontal"));
 
 		//normalize makes not running more rapidly if two dimensional movement
 		targetMovement.Normalize();
@@ -95,7 +94,7 @@ public class movement_script : MonoBehaviour {
 			//can't use targetMovement inside function because you're rotated and always want to move forward in Z, even if z value is <0
 			targetMovement = transform.TransformDirection(new Vector3(0,0,targetMovement.magnitude));
 			
-			if (jumping)
+			/*if (jumping)
 			{
 				if(((rigidbody.velocity.z<0 && targetMovement.z>0)||(rigidbody.velocity.z>0 && targetMovement.z<0)) || (rigidbody.velocity.z < speed && rigidbody.velocity.z > -speed))
 				{
@@ -104,7 +103,7 @@ public class movement_script : MonoBehaviour {
 				}
 			}
 			else
-			{
+			{*/
 				targetMovement *= speed;
 				Vector3 velocity = rigidbody.velocity;
 				//axis not used must go 0 or else velocityChange will reverse current value on axis
@@ -114,18 +113,18 @@ public class movement_script : MonoBehaviour {
 			    velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
 				
 			    rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-			}
+			//}
 			
 		}
 		else
 		{
-			if(!jumping)
-			{
+			//if(!jumping)
+			//{
 				//simulate drag
 				Vector3 velocityChange = -rigidbody.velocity;
 				velocityChange.y = 0;
 				rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-			}
+			//}
 		}
 	}
 	
